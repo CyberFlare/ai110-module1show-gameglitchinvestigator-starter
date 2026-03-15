@@ -3,22 +3,42 @@ def get_range_for_difficulty(difficulty: str):
     raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
 
 
+# FIX: moved from app.py into logic_utils with Claude Code
 def parse_guess(raw: str):
     """
     Parse user input into an int guess.
 
     Returns: (ok: bool, guess_int: int | None, error_message: str | None)
     """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    if raw is None:
+        return False, None, "Enter a guess."
+
+    if raw == "":
+        return False, None, "Enter a guess."
+
+    try:
+        if "." in raw:
+            value = int(float(raw))
+        else:
+            value = int(raw)
+    except Exception:
+        return False, None, "That is not a number."
+
+    return True, value, None
 
 
-def check_guess(guess, secret):
+# FIX: moved from app.py, return correct hint message with Claude Code
+def check_guess(guess: int, secret: int):
     """
     Compare guess to secret and return (outcome, message).
 
     outcome examples: "Win", "Too High", "Too Low"
     """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    if guess == secret:
+        return "Win", "🎉 Correct!"
+    if guess > secret:
+        return "Too High", "📉 Go LOWER!"
+    return "Too Low", "📈 Go HIGHER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):

@@ -8,6 +8,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
 
+  Game started with 7 guesses instead of 8. Guessing button is glitchy. Incorrectly submits the incorrect number or requires more than one click to submit. The game gives incorrect hints. The game generates a number that is not in range of difficulty. 
+
 ---
 
 ## 2. How did you use AI as a teammate?
@@ -15,6 +17,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+
+I used Claude Code for this project. It correctly identified several bugs in our code and I verified this by comparing the AI's list with my me and my teammates' list. The AI did claim that all bugs were found but there were some that weren't found that we noticed.
 
 ---
 
@@ -25,6 +29,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+To determine if a bug was really fixed, I tested them in the client by running the game and trying the scenarios that originally caused the issue. For example, I entered invalid inputs like letters or empty guesses to make sure they no longer increased the attempt counter. This test showed that the input validation logic was working correctly. Claude Code also helped suggest cases to test, such as invalid input and out-of-range guesses, which I verified manually in the game.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
@@ -32,6 +38,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - In your own words, explain why the secret number kept changing in the original app.
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 - What change did you make that finally gave the game a stable secret number?
+
+
 
 ---
 
