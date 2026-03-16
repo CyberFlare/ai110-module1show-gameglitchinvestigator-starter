@@ -58,6 +58,7 @@ if "secret" not in st.session_state or st.session_state.get("difficulty") != dif
     st.session_state.score = 0
     st.session_state.status = "playing"
     st.session_state.history = []
+    st.session_state.history_results = []
     st.session_state.difficulty = difficulty
 
 if "attempts" not in st.session_state:
@@ -71,6 +72,9 @@ if "status" not in st.session_state:
 
 if "history" not in st.session_state:
     st.session_state.history = []
+
+if "history_results" not in st.session_state:
+    st.session_state.history_results = []
 
 st.subheader("Make a guess")
 
@@ -103,6 +107,7 @@ if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
     st.session_state.history = []
+    st.session_state.history_results = []
     st.session_state.status = "playing"
     st.session_state.score = 0
     st.success("New game started.")
@@ -120,6 +125,13 @@ if st.session_state.status != "playing":
             f"Out of attempts! The secret was {st.session_state.secret}. "
             f"Score: {st.session_state.score}"
         )
+    if st.session_state.history:
+        st.subheader("Guess History")
+        rows = [
+            {"#": i + 1, "Guess": g, "Result": r}
+            for i, (g, r) in enumerate(zip(st.session_state.history, st.session_state.history_results))
+        ]
+        st.table(rows)
     st.stop()
 
 if submit:
@@ -140,9 +152,25 @@ if submit:
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
+        st.session_state.history_results.append(outcome)
+
+        distance = abs(guess_int - secret)
+        range_size = high - low
+        pct = distance / range_size if range_size > 0 else 1
+        if distance <= 2:
+            proximity = "🔥 Burning hot!"
+        elif pct < 0.10:
+            proximity = "♨️ Getting warm"
+        elif pct < 0.25:
+            proximity = "🌡️ Lukewarm"
+        elif pct < 0.50:
+            proximity = "❄️ Cold"
+        else:
+            proximity = "🧊 Freezing!"
 
         # FIX: store hint in session state so it persists through st.rerun() with Claude Code
         st.session_state.last_hint = message if show_hint else None
+        st.session_state.last_proximity = proximity if show_hint and outcome != "Win" else None
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -160,6 +188,17 @@ if submit:
 
 if st.session_state.get("last_hint"):
     st.warning(st.session_state.last_hint)
+if st.session_state.get("last_proximity"):
+    st.info(st.session_state.last_proximity)
+
+if st.session_state.history:
+    st.subheader("Guess History")
+    rows = [
+        {"#": i + 1, "Guess": g, "Result": r}
+        for i, (g, r) in enumerate(zip(st.session_state.history, st.session_state.history_results))
+    ]
+    st.table(rows)
 
 st.divider()
+
 st.caption("Built by an AI that claims this code is production-ready.")
