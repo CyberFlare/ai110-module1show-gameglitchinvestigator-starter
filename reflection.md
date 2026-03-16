@@ -39,7 +39,7 @@ To determine if a bug was really fixed, I tested them in the client by running t
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 - What change did you make that finally gave the game a stable secret number?
 
-
+The secret number kept changing because the original code had it regenerate a random number every click unconditionally. Streamlit reruns everytime the user clicks a button or changes an input. Session state is what saves values preventing it from being reset. To keep the secret number "stable", making sure it it changed when needed to.
 
 ---
 
@@ -49,3 +49,5 @@ To determine if a bug was really fixed, I tested them in the client by running t
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+One habit I want to use in future projects is creating pytests to test code. One thing I would do different when I work with AI on a coding task is fixing bugs one by one and breaking down the bugs that needed to be fixed even more to follow along better and gain better control. This project changed how I think about working with AI as it feels more of a collaborative experience, especially when using Claude built into VS Code.

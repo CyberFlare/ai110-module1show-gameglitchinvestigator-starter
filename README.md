@@ -26,12 +26,25 @@ It wrote the code, ran away, and now the game is unplayable.
 ## 📝 Document Your Experience
 
 - [ ] Describe the game's purpose.
+  - A number guessing game where the player tries to guess a secret number within a limited number of attempts. The difficulty setting controls the number range and attempt limit. Players earn points for guessing correctly, with fewer points the more attempts they use.
+
 - [ ] Detail which bugs you found.
+  - Switching difficulty did not reset the game. Invalid inputs counted as guesses and were recorded in the history. Guess history and hints did not update until the next guess was submitted. Check guess showed the wrong hints.
+
 - [ ] Explain what fixes you applied.
+  - I added a reset check so changing the difficulty starts a new game with a new secret number. I made invalid and out-of-range inputs get rejected without counting as attempts. I updated the game so history and hints refresh right away after each valid guess. I also restored the win screen with
+
 
 ## 📸 Demo
 
 - [ ] [Insert a screenshot of your fixed, winning game here]
+![Game Screenshot](images/hintHigh.png)
+![Game Screenshot](images/hintLow.png)
+![Game Screenshot](images/fortnite.png)
+![Game Screenshot](images/notRange.png)
+![Game Screenshot](images/win.png)
+![Game Screenshot](images/pytest.png)
+
 
 ## 🚀 Stretch Features
 

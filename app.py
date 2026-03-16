@@ -141,6 +141,7 @@ if submit:
 
         outcome, message = check_guess(guess_int, secret)
 
+        # FIX: store hint in session state so it persists through st.rerun() with Claude Code
         st.session_state.last_hint = message if show_hint else None
 
         st.session_state.score = update_score(
